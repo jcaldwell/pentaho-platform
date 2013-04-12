@@ -63,11 +63,11 @@ public class JAXBContextResolver implements ContextResolver<JAXBContext> {
     String simpleName = objectType.getSimpleName();
     simpleName = simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1);
     arrays.add(simpleName);
-    types.add(objectType);
     try {
       JSONConfiguration config = JSONConfiguration.mapped().rootUnwrapping(true).arrays(arrays.toArray(new String[] {})).build();
       context = new JSONJAXBContext(config, types.toArray(new Class[] {}));
-      return getContext(objectType);
+      types.add(objectType);
+      return context;
     } catch (JAXBException e) {
     }
     return null;
